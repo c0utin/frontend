@@ -26,7 +26,7 @@ const AttendanceButton: React.FC<Props> = () => {
     return (
 
         <button onClick={handleClick}>
-        <div className={`bg-${backgroundColor} text-${textColor} rounded-2xl w-28`}>{text}</div>
+        <div className={`bg-${backgroundColor} text-${textColor} rounded-2xl py-1 w-[80px] shadow-shadow-25`}>{text}</div>
         </button>
     )
 }

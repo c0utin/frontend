@@ -12,6 +12,7 @@ export default function NewClass() {
           role={"líder"}
           avatar={
             <Avatar
+              defaultImage=""
               profileImage={"imagem"}
               widthImage={"30px"}
               heightImage={"30px"}

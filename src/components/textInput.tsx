@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import addIcon from '../assets/add.svg';
 
 function TextInput() {
@@ -9,7 +9,7 @@ function TextInput() {
     setIsEditable(true);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 

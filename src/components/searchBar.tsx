@@ -1,66 +1,65 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import searchIcon from "../assets/search.svg"
 
-export function SearchBar() {
+interface SearchBarProps {
+    category: string;
+    width: string;
+    cards: {category: string}[];
+}
+
+
+const SearchBar: React.FC<SearchBarProps> = ({ category, cards }) => {
+    const searchBarProps: { category: string; width: string }[] = [
+        { category: "page", width: "90%"},
+        { category: "modal", width: "60%"},
+        { category: "modal", width: "60%"},
+        { category: "modal", width: "60%"},
+    ];
+
+    const getWidth = (category: string): string => {
+        const matchedRoute = searchBarProps.find(item => item.category === category);
+        return matchedRoute ? matchedRoute.width : "80%";
+    }
 
     const [searchInput, setSearchInput] = useState("");
-    let workshops = [
-        { workshop: "pintura" },
-        { workshop: "futebol" },
-        { workshop: "teatro" },
-        { workshop: "jazz" },
-        { workshop: "canto" },
-        { workshop: "violão" },
-        { workshop: "vôlei" },
-        { workshop: "programação" },
-        { workshop: "crochê" },
-        { workshop: "piano" },
-    ]
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
         setSearchInput(e.target.value);
     }
 
-    function items() {
-
-        let filteredWorkshops = workshops.filter((w) => {
-            return w.workshop.match(searchInput.toLowerCase());
+    const items = () => {
+        const filteredCards = cards.filter((c) => {
+            return c.category.toLowerCase().includes(searchInput.toLowerCase());;
         });
 
-
-        let presentation = filteredWorkshops.map((w) => {
-            return (<div className="m-2 text-sm text-gray-600 align-middle bg-white shadow shadow-gray-300 rounded-2xl hover:bg-gray-300">{w.workshop}</div>)
-        })
-
+        const presentation = filteredCards.map((c, index) => {
+            return (<div key={index} className="m-2 text-sm text-gray-600 align-middle bg-white shadow-shadow-25 rounded-2xl hover:bg-gray-300">{c.category}</div>)
+        });
 
         if (searchInput.length > 0) {
-            if (filteredWorkshops.length > 0) {
-                return (<div className="w-1/5 text-center rounded-b-lg bg-[#F0EDED] ">{presentation}</div>)
+            if (filteredCards.length > 0) {
+                return (<div className="w-[100%] text-center rounded-b-lg bg-[#F0EDED] ">{presentation}</div>)
             } else {
-                return (<div className="w-1/5 text-center rounded-b-lg bg-[#F0EDED] ">Resultado não encontrado</div>)
+                return (<div className="w-[100%] text-center rounded-b-lg bg-[#F0EDED] ">Resultado não encontrado</div>)
             }
         } else {
-            return (<div className="w-1/5 text-center rounded-b-lg bg-[#F0EDED] "></div>)
+            return (<div className="w-[100%] text-center rounded-b-lg bg-[#F0EDED] "></div>)
         }
     }
 
-
     return (
         <div>
-            {/* // search bar */}
             <div className="flex justify-center">
-                <div className=" flex w-1/5 px-2 text-gray-300 bg-white shadow border-box rounded-2xl shadow-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-</svg>
-
-                    <input type="search" placeholder="" className=" focus:outline-none w-4/5 mx-3 rounded-2xl" onChange={handleChange} value={searchInput}></input>
+                <div className={`flex w-[${getWidth(category)}] px-2 py-1 text-gray-4 bg-white border-box rounded-2xl shadow-shadow-25`}>
+                    <img src={searchIcon} alt="" className="w-[20px] h-[20px] self-center" />
+                    <input type="search" placeholder="" className="focus:outline-none w-[100%] mx-3 rounded-2xl" onChange={handleChange} value={searchInput}></input>
                 </div>
             </div>
-            {/* // result bar */}
-            <div className="flex justify-center">
+            <div className="absolute flex justify-center">
                 {items()}
             </div>
         </div>
     )
 }
+
+export default SearchBar;

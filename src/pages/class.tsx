@@ -1,33 +1,31 @@
 import React from "react";
 import NavBar from "../components/navBar.tsx";
 import Avatar from "../components/avatar.tsx";
-import imagem from '../assets/react.svg';
 import InformationField from "../components/informationField.tsx";
 import TextInput from "../components/textInput.tsx";
 import StatusDropdown from "../components/statusDropdown.tsx";
 import Card from "../components/card.tsx";
 import addIcon from "../assets/add.svg";
-import presencaIcon from "../assets/presenca.svg";
 import { Link } from "react-router-dom";
+import AttendanceModal from "../components/attendanceModal.tsx";
 
 export default function Class() {
+
     return (
       <div>
             <header>
-                <NavBar name={'Nome'} role={'líder'} avatar={<Avatar profileImage={'imagem'} widthImage={'30px'} heightImage={'30px'}/>}/>
+                <NavBar name={'Nome'} role={'líder'} avatar={<Avatar defaultImage="" profileImage={'imagem'} widthImage={'30px'} heightImage={'30px'}/>}/>
             </header>
-            <main className="flex px-28 py-12 h-full">
+            <main className="flex px-28 py-12 pb-8 h-full">
                 <section className=" mt-8 flex flex-col px-12 bg-white shadow-shadow-10 w-[100%] rounded-[20px] p-6">
                     <div>
                         <button className=" rounded-3xl border border-gray-3 px-4 text-[12px] text-gray-3 mb-8"><Link to='/course'>Voltar</Link></button>
                     </div>
-                    <div className="flex justify-between">
-                        <p className="text-[24px]">Pintura - Turma 3</p>
-                        <div className='flex w-48 pt-4 justify-end'>
-                            <StatusDropdown optionTextSize={'12px'} titleTextSize={'12px'} context={'classes'} position={'absolute'} isDropdown={true}/>
-                        </div>
+                    <div className="flex justify-between items-center">
+                        <p className="text-[24px]">Teatro - Turma 3</p>
+                        <StatusDropdown linkGet="" linkPut="" optionTextSize={'12px'} titleTextSize={'14px'} context={'classes'} isDropdown={true}/>
                     </div>
-                    <div className="border border-gray-3 w-[100%] h-[1px] mt-4 mb-8"></div>
+                    <div className="border border-gray-3 w-[100%] h-[1px] mt-4 mb-8"/>
                     <div className="flex flex-col gap-2 justify-between w-[100%]">
                         <div className="flex justify-between mb-8">
                             <div className="flex flex-col w-[49%] gap-4">
@@ -38,7 +36,7 @@ export default function Class() {
                             <div className="flex flex-col w-[49%] gap-4">
                                 <InformationField title={'Facilitador:'} value={'Maria Flávia Bittencourt '} paddingY={'py4'}/>
                                 <InformationField title={'Frequência:'} value={'75%'} paddingY={'py4'}/>
-                                <button className="flex justify-center gap-4 shadow-shadow-25 rounded-3xl py-1"><img src={presencaIcon} className='w-[16px] h-[16px] self-center' />Lista de Presença</button>
+                                <AttendanceModal />
                             </div>
                         </div>
                     </div>

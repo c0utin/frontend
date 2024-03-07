@@ -16,16 +16,16 @@ type Props = {
   titleTextSize: string;
   context: string;
   isDropdown: boolean;
-  position: string;
 };
 
 // Componente que representa o dropdown de status
-const StatusDropdown: React.FC<Props> = ({ linkGet, linkPut, optionTextSize, titleTextSize, context, isDropdown, position}) => {
+const StatusDropdown: React.FC<Props> = ({ linkGet, linkPut, optionTextSize, titleTextSize, context, isDropdown}) => {
+
   // Constantes para armazenar o nome do status e o estado do dropdown
-  const [statusName, setStatusName] = useState<string>('');
+  const [statusName, setStatusName] = useState<string>('Status');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   
-  function setDropdown (isDropdown){
+  function setDropdown (isDropdown: boolean): void{
     if(isDropdown){
       setIsOpen(!isOpen)
     }else{
@@ -54,7 +54,11 @@ const StatusDropdown: React.FC<Props> = ({ linkGet, linkPut, optionTextSize, tit
 
   const currentStatus = allStatus.find(item => item.status === statusName) || allStatus[0];
 
-  const colorMap = {
+  type ColorMap = {
+    [key: string]: string;
+  };
+
+  const colorMap: ColorMap = {
     'green-2': 'bg-green-2',
     'green-4': 'text-green-4',
     'red-1': 'bg-red-1',
@@ -63,27 +67,33 @@ const StatusDropdown: React.FC<Props> = ({ linkGet, linkPut, optionTextSize, tit
     'gray-4': 'text-gray-4',
   };
 
-  const fillMap = {
+  type FillMap = {
+    [key: string]: string;
+  };
+
+  const fillMap: FillMap = {
    'green-4': '#0B8400',
    'red-2':'#AF0808',
    'gray-4':'#686868',
   };
 
   return (
-    <div className={`${position} bg-white rounded-2xl w-[80px] ${isOpen ? 'h-auto shadow-shadow-10' : 'h-[20px]'}`}>
-      <button className={`flex justify-evenly pl-2 ${colorMap[currentStatus.colorBg]} ${colorMap[currentStatus.colorText]} text-[${titleTextSize}] rounded-2xl w-[80px] h-[20px] justify-center`} onClick={() => setDropdown(isDropdown)}>
+    <div className={`w-[90px] h-[20px]`}>
+      <button className={`flex items-center ${isDropdown ? 'justify-evenly' : 'justify-center'} ${colorMap[currentStatus.colorBg]} ${colorMap[currentStatus.colorText]} text-[${titleTextSize}] rounded-2xl w-[90px] px-2 h-auto`}
+        onClick={() => setDropdown(isDropdown)}>
         {statusName}
-        <div className='scale-50'>
-          {isDropdown ? (isOpen ? <ArrowUp fill={fillMap[currentStatus.colorText]}/> : <ArrowDown fill={fillMap[currentStatus.colorText]}/>) : null}
+        <div className=''>
+          {isDropdown ? (isOpen ? <ArrowUp fill={fillMap[currentStatus.colorText]} width={12} height={12}/> : <ArrowDown fill={fillMap[currentStatus.colorText]} width={12} height={12}/>) : null}
         </div>
       </button>
+
       {isOpen && (
-        <div className="p-2">
-          <ul className='flex flex-col items-center'>
+        <div className="bg-white flex flex-col mt-1 relative rounded-2xl w-[90px] shadow-shadow-10 h-auto p-2">
+          <ul className='self-center'>
             {allStatus
               .filter(item => item.case && item.case.includes(context))
               .map(item => (
-              <li key={item.status} className={`flex ${colorMap[item.colorText]} text-[${optionTextSize}] ${colorMap[item.colorBg]} rounded-2xl w-[60px] h-[20px] justify-center m-[2px]`}>
+              <li key={item.status} className={`flex ${colorMap[item.colorText]} text-[${optionTextSize}] ${colorMap[item.colorBg]} rounded-2xl w-[70px] h-[20px] justify-center m-[4px]`}>
                 <button onClick={() => {setStatusName(item.status); setIsOpen(false);}}>{item.status}</button>
               </li>
             ))}

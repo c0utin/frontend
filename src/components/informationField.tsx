@@ -21,6 +21,7 @@ const InformationField: React.FC<Props> = ({title, value, paddingY}) =>{
         }
     }, [value]);
 
+
     // Styles for the padding
     const padding = {
         py2: 'py-2',
@@ -30,9 +31,9 @@ const InformationField: React.FC<Props> = ({title, value, paddingY}) =>{
     // Return the information field
     return(
         <>
-            <div className={`flex border border-gray-3 rounded-full px-3 ${padding[paddingY]} w-[100%] h-[25px] items-center`}>
-                <p className="font-semibold w-[35%] text-[14px]">{title}</p>
-                <p ref={valueRef} title={hasOverflow ? value :""} className={`w-[65%] text-[13px] cursor-default text-center overflow-hidden text-ellipsis whitespace-nowrap`}>{value}</p>
+            <div className={`flex border border-gray-3 rounded-full px-3 ${(padding as { [key : string]: string })[paddingY]} w-[100%] h-[25px] items-center`}>
+                <p className="font-semibold w-[40%] text-[14px]">{title}</p>
+                <p ref={valueRef} title={hasOverflow ? value :""} className={`w-[60%] text-[13px] cursor-default text-center overflow-hidden text-ellipsis whitespace-nowrap`}>{value}</p>
             </div>
         </>
     )

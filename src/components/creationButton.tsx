@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import addIcon from '../assets/add.svg';
 
 interface Props {
     name: string;
     route: string;
 }
 
-const NamedButton: React.FC<Props> = ({ name, route }) => {
+const CreationButton: React.FC<Props> = ({ name, route }) => {
     
     const nameButton = [
         { name: "Criar oficina", route: "/criar-oficina" },
@@ -17,23 +18,17 @@ const NamedButton: React.FC<Props> = ({ name, route }) => {
         { name: "Cadastrar turma", route: "/cadastrar-turma" }
     ];
 
-    
-    let filteredName = "";
-
-    
-    for (let button of nameButton) {
-        filteredName = button.name; 
-        console.log(filteredName); 
-    }
+    let filteredButton = nameButton.find(button => button.name === name);
 
     return (
-        <div className=" bg-white w-36 text-gray-4 rounded-2xl shadow-red-2 shadow-2xl">
-            <Link to={route} className="flex items-center justify-between p-2">
-                <span className="flex align-self">{filteredName}</span>
-                <i className="fa fa-plus" aria-hidden="true"></i>
-            </Link>
+        <div className="flex bg-white w-[20%] text-gray-4 rounded-2xl shadow-shadow-25 items-center text-nowrap">
+            {filteredButton?.route && (
+            <Link to={filteredButton.route} className="flex justify-evenly gap-2 px-4">
+                <img src={addIcon} alt="ícone de adição" className="w-[18px] h-[18px] self-center" />
+                <span className="flex">{filteredButton?.name}</span>
+            </Link>)}
         </div>
     );
 }
 
-export default NamedButton;
+export default CreationButton;

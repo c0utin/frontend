@@ -1,9 +1,15 @@
-import React from "react";
+import React, { ReactNode }from "react";
 import { Link } from 'react-router-dom';
 import logoTest from '../assets/logoTest.svg';
 
+interface Props {
+    avatar: ReactNode;
+    name: string;
+    role: string;
+}
+
 // Component that represents the navigation bar
-const NavBar = ({ avatar, name, role }) => {
+const NavBar: React.FC<Props> = ({ avatar, name, role }) => {
 
     // Define an array with dictionaries that contain the title, link and the roles that can access each item
     const NavBarItems = [
